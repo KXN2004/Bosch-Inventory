@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from sqlalchemy import create_engine, Column, INTEGER, TEXT, DATE
+from sqlalchemy import create_engine, Column, Integer, Text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 Base = declarative_base()
@@ -8,18 +8,27 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-class Inward(Base):
+class Inwards(Base):
     """Inward Model"""
-    __tablename__ = 'Inward'
+    __tablename__ = 'Inwards'
 
-    id = Column(INTEGER, primary_key=True, autoincrement=True)
-    part_number = Column('PartNumber', INTEGER, nullable=False)
-    description = Column('Description', TEXT, nullable=False)
-    invoice_number = Column('InvoiceNumber', INTEGER, nullable=False)
-    date = Column('Date', DATE, nullable=False)
-    quantity = Column('Quantity', INTEGER, nullable=False)
+    id = Column('rowid', Integer, primary_key=True, autoincrement=True)
+    part = Column('PartNumber', Integer, nullable=False)
+    description = Column('Description', Text, nullable=False)
+    invoice = Column('InvoiceNumber', Integer, nullable=False)
+    date = Column('DateOfEntry', Text, nullable=False)
+    quantity = Column('Quantity', Integer, nullable=False)
+
+    def __repr__(self) -> str:
+        """Represent Inwards"""
+        return f'<Inward(part={self.part}, invoice={self.invoice})>'
+
+    def add(self) -> None:
+        """Add the current state to the database"""
+        session.add(self)
+        session.commit()
 
 
 if __name__ == "__main__":
     # To be executed when the script is run directly
-    Base.metadata.create_all(engine, checkfirst=True)
+    print(session.query(Inwards).first())

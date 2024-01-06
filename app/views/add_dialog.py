@@ -9,6 +9,19 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from app.models.model import Inwards
+from datetime import datetime
+from app.controllers.controller import refresh_table
+
+
+
+class MyEmitter(QtCore.QObject):
+    # Define a custom signal with parameters
+    my_signal = QtCore.pyqtSignal(str)
+
+    def emit_signal(self):
+        # Emit the custom signal with a message
+        self.my_signal.emit("Hello from the custom signal!")
 
 
 class Ui_dialog(object):
@@ -58,7 +71,8 @@ class Ui_dialog(object):
         self.date_label.setObjectName("date_label")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.date_label)
         self.date_edit = QtWidgets.QDateEdit(self.group_box)
-        self.date_edit.setMinimumDate(QtCore.QDate(2024, 1, 1))
+        todays_date: datetime.date = datetime.now().date()
+        self.date_edit.setDate(QtCore.QDate(todays_date.year, todays_date.month, todays_date.day))
         self.date_edit.setCalendarPopup(True)
         self.date_edit.setObjectName("date_edit")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.date_edit)
@@ -86,7 +100,7 @@ class Ui_dialog(object):
         self.gridLayout.addWidget(self.group_box, 0, 0, 1, 1)
 
         self.retranslateUi(dialog)
-        self.add_button.clicked.connect(dialog.accept) # type: ignore
+        self.add_button.clicked.connect(lambda: self.add_item(dialog)) # type: ignore
         self.cancel_button.clicked.connect(dialog.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(dialog)
 
@@ -101,6 +115,22 @@ class Ui_dialog(object):
         self.date_label.setText(_translate("dialog", "Date"))
         self.add_button.setText(_translate("dialog", "Add Item"))
         self.cancel_button.setText(_translate("dialog", "Cancel"))
+
+    @refresh_table()
+    def add_item(self, dialog):
+        """Method to add an entry in the database"""
+
+        # Gather the data and insert into database table
+        new_entry = Inwards()
+        new_entry.part = int(self.part_edit.text())
+        new_entry.description = self.description_edit.text()
+        new_entry.quantity = int(self.quantity_edit.text())
+        new_entry.invoice = int(self.invoice_edit.text())
+        new_entry.date = self.date_edit.date().toString("dd-MM-yyyy")
+        new_entry.add()
+
+        dialog.accept()
+
 
 
 if __name__ == "__main__":

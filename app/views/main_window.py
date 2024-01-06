@@ -9,6 +9,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
+from app.views.add_dialog import Ui_dialog
+from app.controllers.controller import model
+
+
+class MyReceiver(QtCore.QObject):
+    def my_slot(self, message):
+        # Slot to receive the custom signal and print the message
+        print("Received message:", message)
 
 
 class Ui_main_window(object):
@@ -51,6 +60,7 @@ class Ui_main_window(object):
         self.add_button.setIcon(icon1)
         self.add_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.add_button.setObjectName("add_button")
+        self.add_button.clicked.connect(self.open_add_dialog)
         self.horizontal_layout.addWidget(self.add_button)
         self.remove_button = QtWidgets.QToolButton(self.group_box)
         self.remove_button.setEnabled(False)
@@ -63,10 +73,12 @@ class Ui_main_window(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontal_layout.addItem(spacerItem)
         self.gridLayout.addLayout(self.horizontal_layout, 0, 0, 1, 1)
-        self.table_view = QtWidgets.QTableView(self.group_box)
-        self.table_view.setStatusTip("")
-        self.table_view.setObjectName("table_view")
-        self.gridLayout.addWidget(self.table_view, 1, 0, 1, 1)
+        self.inwards_table = QtWidgets.QTableView(self.group_box)
+        self.inwards_table.setStatusTip("")
+        self.inwards_table.setObjectName("table_view")
+
+        self.inwards_table.setModel(model)
+        self.gridLayout.addWidget(self.inwards_table, 1, 0, 1, 1)
         self.verticalLayout.addWidget(self.group_box)
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap("../assets/icons/download.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -154,6 +166,14 @@ class Ui_main_window(object):
         self.actionAbout.setText(_translate("main_window", "About"))
         self.actionQuit.setText(_translate("main_window", "Quit"))
         self.actionQuit.setShortcut(_translate("main_window", "Ctrl+Q"))
+
+    def open_add_dialog(self) -> None:
+        """Add a new part to the main window"""
+
+        dialog = QtWidgets.QDialog()
+        ui = Ui_dialog()
+        ui.setupUi(dialog)
+        dialog.exec_()
 
 
 if __name__ == "__main__":
