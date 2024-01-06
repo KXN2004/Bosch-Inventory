@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'inward_dialog.ui'
+# Form implementation generated from reading ui file 'add_dialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -16,7 +16,7 @@ class Ui_dialog(object):
         dialog.setObjectName("dialog")
         dialog.resize(292, 272)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("Downloads/icons/plus.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../assets/icons/plus.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         dialog.setWindowIcon(icon)
         self.gridLayout = QtWidgets.QGridLayout(dialog)
         self.gridLayout.setObjectName("gridLayout")
@@ -71,13 +71,13 @@ class Ui_dialog(object):
         self.horizontalLayout.addItem(spacerItem1)
         self.add_button = QtWidgets.QPushButton(self.group_box)
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("Downloads/icons/add-ellipse.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("../assets/icons/add-ellipse.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.add_button.setIcon(icon1)
         self.add_button.setObjectName("add_button")
         self.horizontalLayout.addWidget(self.add_button)
         self.cancel_button = QtWidgets.QPushButton(self.group_box)
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("Downloads/icons/close-ellipse.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("../assets/icons/close-ellipse.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.cancel_button.setIcon(icon2)
         self.cancel_button.setFlat(False)
         self.cancel_button.setObjectName("cancel_button")

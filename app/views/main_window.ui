@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main_window</class>
+ <widget class="QMainWindow" name="main_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Bosch Inventory</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Downloads/icons/layers.svg</normaloff>Downloads/icons/layers.svg</iconset>
+  </property>
+  <widget class="QWidget" name="central_widget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tab_widget">
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="inward_tab">
+       <property name="acceptDrops">
+        <bool>false</bool>
+       </property>
+       <property name="accessibleName">
+        <string/>
+       </property>
+       <attribute name="icon">
+        <iconset>
+         <normaloff>Downloads/icons/download.svg</normaloff>Downloads/icons/download.svg</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Inword</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QGroupBox" name="group_box">
+          <property name="statusTip">
+           <string/>
+          </property>
+          <property name="title">
+           <string>Manage Inwards</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontal_layout">
+             <item>
+              <widget class="QToolButton" name="add_button">
+               <property name="text">
+                <string>Add</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>Downloads/icons/add-ellipse.svg</normaloff>Downloads/icons/add-ellipse.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="remove_button">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Remove</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>Downloads/icons/remove-ellipse.svg</normaloff>Downloads/icons/remove-ellipse.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontal_spacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <widget class="QTableView" name="table_view">
+             <property name="statusTip">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="outward_tab">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>Downloads/icons/upload.svg</normaloff>Downloads/icons/upload.svg</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Outward</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="group_box_2">
+          <property name="statusTip">
+           <string/>
+          </property>
+          <property name="title">
+           <string>Manage Outwards</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QToolButton" name="add_button_2">
+               <property name="text">
+                <string>Add</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>Downloads/icons/add-ellipse.svg</normaloff>Downloads/icons/add-ellipse.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="remove_button_2">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Remove</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>Downloads/icons/remove-ellipse.svg</normaloff>Downloads/icons/remove-ellipse.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontal_spacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <widget class="QTableView" name="table_view_2">
+             <property name="statusTip">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="inventory_tab">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>Downloads/icons/box.svg</normaloff>Downloads/icons/box.svg</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Inventory</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="group_box_3">
+          <property name="statusTip">
+           <string/>
+          </property>
+          <property name="title">
+           <string>Manage Inventory</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QTableView" name="table_view_3">
+             <property name="statusTip">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset>
+     <normaloff>Downloads/icons/info.svg</normaloff>Downloads/icons/info.svg</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset>
+     <normaloff>Downloads/icons/close-square.svg</normaloff>Downloads/icons/close-square.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
