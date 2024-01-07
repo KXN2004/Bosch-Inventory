@@ -4,7 +4,7 @@ from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 def create_connection():
     # Establish a connection to the SQLite database
     db = QSqlDatabase.addDatabase("QSQLITE")
-    db.setDatabaseName("/Users/kevin/Documents/GitHub/Bosch-Inventory/app/database/app.db")
+    db.setDatabaseName("../database/app.db")
     if not db.open():
         print("Unable to open the database")
         return False
