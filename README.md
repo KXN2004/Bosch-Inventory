@@ -18,7 +18,7 @@
 
     
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://github.com/KXN2004/Bosch-Inventory/blob/assets/images/inventory-icon.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/KXN2004/Bosch-Inventory/blob/main/assets/images/inventory-icon.png" alt="Logo" width="150" height="150">
   </a>
 
   <h3 align="center">Bosch Inventory Management System</h3>
