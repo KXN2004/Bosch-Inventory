@@ -9,9 +9,10 @@
 import sys
 sys.path.append("..")
 from PyQt5 import QtCore, QtGui, QtWidgets
-from app.models.model import Inwards
+from models.model import Inwards
 from datetime import datetime
 from controllers.controller import refresh_table
+from utils.utils import only_digits
 
 
 class MyEmitter(QtCore.QObject):
@@ -115,20 +116,53 @@ class Ui_dialog(object):
         self.add_button.setText(_translate("dialog", "Add Item"))
         self.cancel_button.setText(_translate("dialog", "Cancel"))
 
+    def all_fields_filled(self):
+        """Method which check all fields are not empty"""
+
+        # When all fields are filled
+        if not (self.part_edit.text()
+            and self.quantity_edit.text()
+            and self.invoice_edit.text()
+            and self.description_edit.text()
+        ):
+            # Create a new alert message
+            alert = QtWidgets.QMessageBox()
+            # Add a title to the window
+            alert.setWindowTitle("Invalid entry")
+            # Add an icon to inform the user of his mistake
+            alert.setIcon(QtWidgets.QMessageBox.Information)
+            # Set the text displayed inside to show the following message
+            alert.setText(f"Some field is empty.")
+            # Add an 'OK' button for the user to click
+            alert.setStandardButtons(QtWidgets.QMessageBox.Ok)
+            # Launch the Alert
+            alert.exec_()
+            # Return False because some field was empty
+            return False
+
+        # Return True because all fields are indeed filled
+        return True
+
     @refresh_table()
     def add_item(self, dialog):
         """Method to add an entry in the database"""
 
-        # Gather the data and insert into database table
-        new_entry = Inwards()
-        new_entry.part = int(self.part_edit.text())
-        new_entry.description = self.description_edit.text()
-        new_entry.quantity = int(self.quantity_edit.text())
-        new_entry.invoice = int(self.invoice_edit.text())
-        new_entry.date = self.date_edit.date().toString("dd-MM-yyyy")
-        new_entry.add()
+        if (self.all_fields_filled()
+            and only_digits(self.part_edit)
+            and only_digits(self.quantity_edit)
+            and only_digits(self.invoice_edit)
+        ):
 
-        dialog.accept()
+            # Gather the data and insert into database table
+            new_entry = Inwards()
+            new_entry.part = int(self.part_edit.text())
+            new_entry.description = self.description_edit.text()
+            new_entry.quantity = int(self.quantity_edit.text())
+            new_entry.invoice = int(self.invoice_edit.text())
+            new_entry.date = self.date_edit.date().toString("dd-MM-yyyy")
+            new_entry.add()
+
+            dialog.accept()
 
 
 
