@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QMessageBox
+from PyQt5 import QtGui
 
 
 def only_digits(text_edit: QLineEdit) -> bool:
@@ -10,6 +11,10 @@ def only_digits(text_edit: QLineEdit) -> bool:
         alert = QMessageBox()
         # Add a title to the window
         alert.setWindowTitle("Invalid entry")
+        # Add an icon to the window
+        alert_icon = QtGui.QIcon()
+        alert_icon.addPixmap(QtGui.QPixmap("../assets/icons/hand.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        alert.setWindowIcon(alert_icon)
         # Add an icon to inform the user of his mistake
         alert.setIcon(QMessageBox.Information)
         # Set the text displayed inside to show the following message

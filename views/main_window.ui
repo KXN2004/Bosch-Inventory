@@ -37,7 +37,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -92,16 +92,16 @@
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="remove_button">
+              <widget class="QToolButton" name="edit_button">
                <property name="enabled">
                 <bool>false</bool>
                </property>
                <property name="text">
-                <string>Remove</string>
+                <string>Delete</string>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>Downloads/icons/remove-ellipse.svg</normaloff>Downloads/icons/remove-ellipse.svg</iconset>
+                 <normaloff>../../../Downloads/icons/close-ellipse.svg</normaloff>../../../Downloads/icons/close-ellipse.svg</iconset>
                </property>
                <property name="toolButtonStyle">
                 <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -120,6 +120,23 @@
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QToolButton" name="toolButton_2">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Clear</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../../../Downloads/icons/close-square.svg</normaloff>../../../Downloads/icons/close-square.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -170,16 +187,16 @@
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="remove_button_2">
+              <widget class="QToolButton" name="edit_button_2">
                <property name="enabled">
                 <bool>false</bool>
                </property>
                <property name="text">
-                <string>Remove</string>
+                <string>Delete</string>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>Downloads/icons/remove-ellipse.svg</normaloff>Downloads/icons/remove-ellipse.svg</iconset>
+                 <normaloff>../../../Downloads/icons/close-ellipse.svg</normaloff>../../../Downloads/icons/close-ellipse.svg</iconset>
                </property>
                <property name="toolButtonStyle">
                 <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -198,6 +215,23 @@
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QToolButton" name="toolButton">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Clear</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../../../Downloads/icons/close-square.svg</normaloff>../../../Downloads/icons/close-square.svg</iconset>
+               </property>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextBesideIcon</enum>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -229,6 +263,36 @@
           </property>
           <property name="title">
            <string>Manage Inventory</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QTableView" name="table_view_3">
+             <property name="statusTip">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="rack_tab">
+       <attribute name="icon">
+        <iconset>
+         <normaloff>Downloads/icons/box.svg</normaloff>Downloads/icons/box.svg</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Rack</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="group_box_3">
+          <property name="statusTip">
+           <string/>
+          </property>
+          <property name="title">
+           <string>Manage Rack</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
            <item row="0" column="0">

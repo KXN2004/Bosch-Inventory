@@ -27,7 +27,7 @@ class MyEmitter(QtCore.QObject):
 class Ui_dialog(object):
     def setupUi(self, dialog):
         dialog.setObjectName("dialog")
-        dialog.resize(292, 272)
+        dialog.resize(292, 287)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../assets/icons/add-square.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         dialog.setWindowIcon(icon)
@@ -55,11 +55,11 @@ class Ui_dialog(object):
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.quantity_edit)
         self.invoice_label = QtWidgets.QLabel(self.group_box)
         self.invoice_label.setObjectName("invoice_label")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.invoice_label)
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.invoice_label)
         self.invoice_edit = QtWidgets.QLineEdit(self.group_box)
         self.invoice_edit.setClearButtonEnabled(True)
         self.invoice_edit.setObjectName("invoice_edit")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.invoice_edit)
+        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.invoice_edit)
         self.description_label = QtWidgets.QLabel(self.group_box)
         self.description_label.setObjectName("description_l`abel")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.description_label)
@@ -69,13 +69,13 @@ class Ui_dialog(object):
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.description_edit)
         self.date_label = QtWidgets.QLabel(self.group_box)
         self.date_label.setObjectName("date_label")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.date_label)
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.date_label)
         self.date_edit = QtWidgets.QDateEdit(self.group_box)
         todays_date: datetime.date = datetime.now().date()
         self.date_edit.setDate(QtCore.QDate(todays_date.year, todays_date.month, todays_date.day))
         self.date_edit.setCalendarPopup(True)
         self.date_edit.setObjectName("date_edit")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.date_edit)
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.date_edit)
         self.verticalLayout.addLayout(self.formLayout)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
@@ -98,7 +98,12 @@ class Ui_dialog(object):
         self.horizontalLayout.addWidget(self.cancel_button)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.gridLayout.addWidget(self.group_box, 0, 0, 1, 1)
-
+        self.rack_label = QtWidgets.QLabel(self.group_box)
+        self.rack_label.setObjectName("rack_label")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.rack_label)
+        self.rack_edit = QtWidgets.QLineEdit(self.group_box)
+        self.rack_edit.setObjectName("rack_edit")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.rack_edit)
         self.retranslateUi(dialog)
         self.add_button.clicked.connect(lambda: self.add_item(dialog)) # type: ignore
         self.cancel_button.clicked.connect(dialog.reject) # type: ignore
@@ -112,6 +117,7 @@ class Ui_dialog(object):
         self.quantity_label.setText(_translate("dialog", "Quantity"))
         self.invoice_label.setText(_translate("dialog", "Invoice No."))
         self.description_label.setText(_translate("dialog", "Description"))
+        self.rack_label.setText(_translate("dialog", "Rack No."))
         self.date_label.setText(_translate("dialog", "Date"))
         self.add_button.setText(_translate("dialog", "Add Item"))
         self.cancel_button.setText(_translate("dialog", "Cancel"))
@@ -148,14 +154,13 @@ class Ui_dialog(object):
         """Method to add an entry in the database"""
 
         if (self.all_fields_filled()
-            and only_digits(self.part_edit)
             and only_digits(self.quantity_edit)
             and only_digits(self.invoice_edit)
         ):
 
             # Gather the data and insert into database table
             new_entry = Inwards()
-            new_entry.part = int(self.part_edit.text())
+            new_entry.part = self.part_edit.text()
             new_entry.description = self.description_edit.text()
             new_entry.quantity = int(self.quantity_edit.text())
             new_entry.invoice = int(self.invoice_edit.text())

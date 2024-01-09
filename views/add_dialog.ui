@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>292</width>
-    <height>272</height>
+    <height>287</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,34 +40,6 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="quantity_label">
-          <property name="text">
-           <string>Quantity</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="quantity_edit">
-          <property name="clearButtonEnabled">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="invoice_label">
-          <property name="text">
-           <string>Invoice No.</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="invoice_edit">
-          <property name="clearButtonEnabled">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="description_label">
           <property name="text">
@@ -82,14 +54,42 @@
           </property>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="quantity_label">
+          <property name="text">
+           <string>Quantity</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="quantity_edit">
+          <property name="clearButtonEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
         <item row="4" column="0">
+         <widget class="QLabel" name="invoice_label">
+          <property name="text">
+           <string>Invoice No.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="invoice_edit">
+          <property name="clearButtonEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
          <widget class="QLabel" name="date_label">
           <property name="text">
            <string>Date</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="5" column="1">
          <widget class="QDateEdit" name="date_edit">
           <property name="minimumDate">
            <date>
@@ -102,6 +102,16 @@
            <bool>true</bool>
           </property>
          </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="rack_abel">
+          <property name="text">
+           <string>Rack No.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="rack_edit"/>
         </item>
        </layout>
       </item>
@@ -168,13 +178,13 @@
  <resources/>
  <connections>
   <connection>
-   <sender>add_button</sender>
+   <sender>cancel_button</sender>
    <signal>clicked()</signal>
    <receiver>dialog</receiver>
-   <slot>accept()</slot>
+   <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
+     <x>170</x>
      <y>210</y>
     </hint>
     <hint type="destinationlabel">
@@ -184,13 +194,13 @@
    </hints>
   </connection>
   <connection>
-   <sender>cancel_button</sender>
+   <sender>add_button</sender>
    <signal>clicked()</signal>
    <receiver>dialog</receiver>
-   <slot>reject()</slot>
+   <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>170</x>
+     <x>70</x>
      <y>210</y>
     </hint>
     <hint type="destinationlabel">
