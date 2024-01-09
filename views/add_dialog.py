@@ -9,9 +9,9 @@
 import sys
 sys.path.append("..")
 from PyQt5 import QtCore, QtGui, QtWidgets
-from models.model import Inwards
+from models.model import Inwards, Outwards
 from datetime import datetime
-from controllers.controller import refresh_table
+from controllers.controller import refresh_table, inwards_model, outwards_model, inventory_model
 from utils.utils import only_digits
 
 
@@ -25,7 +25,8 @@ class MyEmitter(QtCore.QObject):
 
 
 class Ui_dialog(object):
-    def setupUi(self, dialog):
+    def setupUi(self, dialog, tablename):
+
         dialog.setObjectName("dialog")
         dialog.resize(292, 287)
         icon = QtGui.QIcon()
@@ -105,7 +106,12 @@ class Ui_dialog(object):
         self.rack_edit.setObjectName("rack_edit")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.rack_edit)
         self.retranslateUi(dialog)
-        self.add_button.clicked.connect(lambda: self.add_item(dialog)) # type: ignore
+        match tablename:
+            case "Inwards":
+                self.add_button.clicked.connect(lambda: self.add_item(dialog))
+            case "Outwards":
+                self.add_button.clicked.connect(lambda: self.add_item_2(dialog))
+        # type: ignore
         self.cancel_button.clicked.connect(dialog.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(dialog)
 
@@ -149,7 +155,6 @@ class Ui_dialog(object):
         # Return True because all fields are indeed filled
         return True
 
-    @refresh_table()
     def add_item(self, dialog):
         """Method to add an entry in the database"""
 
@@ -164,10 +169,36 @@ class Ui_dialog(object):
             new_entry.description = self.description_edit.text()
             new_entry.quantity = int(self.quantity_edit.text())
             new_entry.invoice = int(self.invoice_edit.text())
+            new_entry.rack = self.rack_edit.text()
             new_entry.date = self.date_edit.date().toString("dd-MM-yyyy")
             new_entry.add()
 
             dialog.accept()
+
+        inwards_model.select()
+        inventory_model.select()
+
+    def add_item_2(self, dialog):
+        """Method to add an entry in the database"""
+
+        if (self.all_fields_filled()
+                and only_digits(self.quantity_edit)
+                and only_digits(self.invoice_edit)
+        ):
+            # Gather the data and insert into database table
+            new_entry = Outwards()
+            new_entry.part = self.part_edit.text()
+            new_entry.description = self.description_edit.text()
+            new_entry.quantity = int(self.quantity_edit.text())
+            new_entry.invoice = int(self.invoice_edit.text())
+            new_entry.rack = self.rack_edit.text()
+            new_entry.date = self.date_edit.date().toString("dd-MM-yyyy")
+            new_entry.add()
+
+            dialog.accept()
+
+        outwards_model.select()
+        inventory_model.select()
 
 
 

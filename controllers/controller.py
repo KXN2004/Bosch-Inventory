@@ -15,7 +15,7 @@ def refresh_table():
     def decorator(func):
         def wrapper(*args, **kwargs):
             func(*args, **kwargs)
-            model.select()
+            inwards_model.select()
         return wrapper
     return decorator
 
@@ -24,10 +24,28 @@ def refresh_table():
 create_connection()
 
 # Create a QSqlTableModel object
-model = QSqlTableModel()
+inwards_model = QSqlTableModel()
 
 # Set the table name for the model
-model.setTable("Inwards")
+inwards_model.setTable("Inwards")
 
 # Load the data from the database
-model.select()
+inwards_model.select()
+
+# Create a QSqlTableModel object
+outwards_model = QSqlTableModel()
+
+# Set the table name for the model
+outwards_model.setTable("Outwards")
+
+# Load the data from the database
+outwards_model.select()
+
+# Create a QSqlTableModel object
+inventory_model = QSqlTableModel()
+
+# Set the table name for the model
+inventory_model.setTable("Inventory")
+
+# Load the data from the database
+inventory_model.select()

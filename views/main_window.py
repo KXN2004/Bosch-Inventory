@@ -18,7 +18,7 @@ print(sys.path)
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from views.add_dialog import Ui_dialog
-from controllers.controller import model
+from controllers.controller import inwards_model, outwards_model, inventory_model
 
 
 class MyReceiver(QtCore.QObject):
@@ -105,7 +105,7 @@ class Ui_main_window(object):
         self.inwards_table = QtWidgets.QTableView(self.group_box)
         self.inwards_table.setStatusTip("")
         self.inwards_table.setObjectName("table_view")
-        self.inwards_table.setModel(model)
+        self.inwards_table.setModel(inwards_model)
         self.gridLayout.addWidget(self.inwards_table, 1, 0, 1, 1)
         self.verticalLayout.addWidget(self.group_box)
         icon3 = QtGui.QIcon()
@@ -127,6 +127,7 @@ class Ui_main_window(object):
         self.add_button_2.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.add_button_2.setObjectName("add_button_2")
         self.horizontalLayout_2.addWidget(self.add_button_2)
+        self.add_button_2.clicked.connect(self.open_add_dialog_2)
         self.delete_button_2 = QtWidgets.QToolButton(self.group_box_2)
         self.delete_button_2.setEnabled(False)
         self.delete_button_2.setIcon(icon2)
@@ -148,7 +149,7 @@ class Ui_main_window(object):
         self.table_view_2 = QtWidgets.QTableView(self.group_box_2)
         self.table_view_2.setStatusTip("")
         self.table_view_2.setObjectName("table_view_2")
-        # self.table_view_2.setModel()
+        self.table_view_2.setModel(outwards_model)
         self.gridLayout_4.addWidget(self.table_view_2, 1, 0, 1, 1)
         self.gridLayout_5.addWidget(self.group_box_2, 0, 0, 1, 1)
         icon4 = QtGui.QIcon()
@@ -166,6 +167,7 @@ class Ui_main_window(object):
         self.table_view_3 = QtWidgets.QTableView(self.group_box_3)
         self.table_view_3.setStatusTip("")
         self.table_view_3.setObjectName("table_view_3")
+        self.table_view_3.setModel(inventory_model)
         self.gridLayout_6.addWidget(self.table_view_3, 0, 0, 1, 1)
         self.gridLayout_7.addWidget(self.group_box_3, 0, 0, 1, 1)
         icon6 = QtGui.QIcon()
@@ -224,7 +226,15 @@ class Ui_main_window(object):
 
         dialog = QtWidgets.QDialog()
         ui = Ui_dialog()
-        ui.setupUi(dialog)
+        ui.setupUi(dialog, "Inwards")
+        dialog.exec_()
+
+    def open_add_dialog_2(self) -> None:
+        """Add a new part to the main window"""
+
+        dialog = QtWidgets.QDialog()
+        ui = Ui_dialog()
+        ui.setupUi(dialog, "Outwards")
         dialog.exec_()
 
 
