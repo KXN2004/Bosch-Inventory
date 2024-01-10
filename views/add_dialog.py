@@ -11,7 +11,7 @@ sys.path.append("..")
 from PyQt5 import QtCore, QtGui, QtWidgets
 from models.model import Inwards, Outwards
 from datetime import datetime
-from controllers.controller import refresh_table, inwards_model, outwards_model, inventory_model
+from controllers.controller import inwards_model, outwards_model, inventory_model
 from utils.utils import only_digits
 
 
@@ -70,13 +70,13 @@ class Ui_dialog(object):
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.description_edit)
         self.date_label = QtWidgets.QLabel(self.group_box)
         self.date_label.setObjectName("date_label")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.date_label)
+        self.formLayout.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.date_label)
         self.date_edit = QtWidgets.QDateEdit(self.group_box)
         todays_date: datetime.date = datetime.now().date()
         self.date_edit.setDate(QtCore.QDate(todays_date.year, todays_date.month, todays_date.day))
         self.date_edit.setCalendarPopup(True)
         self.date_edit.setObjectName("date_edit")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.date_edit)
+        self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.date_edit)
         self.verticalLayout.addLayout(self.formLayout)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
@@ -105,6 +105,14 @@ class Ui_dialog(object):
         self.rack_edit = QtWidgets.QLineEdit(self.group_box)
         self.rack_edit.setObjectName("rack_edit")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.rack_edit)
+
+        self.remarks_label = QtWidgets.QLabel(self.group_box)
+        self.remarks_label.setObjectName("remarks_label")
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.remarks_label)
+        self.remarks_edit = QtWidgets.QLineEdit(self.group_box)
+        self.remarks_edit.setObjectName("remarks_edit")
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.remarks_edit)
+
         self.retranslateUi(dialog)
         match tablename:
             case "Inwards":
@@ -124,6 +132,7 @@ class Ui_dialog(object):
         self.invoice_label.setText(_translate("dialog", "Invoice No."))
         self.description_label.setText(_translate("dialog", "Description"))
         self.rack_label.setText(_translate("dialog", "Rack No."))
+        self.remarks_label.setText(_translate("dialog", "Remarks"))
         self.date_label.setText(_translate("dialog", "Date"))
         self.add_button.setText(_translate("dialog", "Add Item"))
         self.cancel_button.setText(_translate("dialog", "Cancel"))
@@ -136,6 +145,7 @@ class Ui_dialog(object):
             and self.quantity_edit.text()
             and self.invoice_edit.text()
             and self.description_edit.text()
+            and self.rack_edit.text()
         ):
             # Create a new alert message
             alert = QtWidgets.QMessageBox()
@@ -170,6 +180,7 @@ class Ui_dialog(object):
             new_entry.quantity = int(self.quantity_edit.text())
             new_entry.invoice = int(self.invoice_edit.text())
             new_entry.rack = self.rack_edit.text()
+            new_entry.remarks = self.remarks_edit.text()
             new_entry.date = self.date_edit.date().toString("dd-MM-yyyy")
             new_entry.add()
 
@@ -192,10 +203,10 @@ class Ui_dialog(object):
             new_entry.quantity = int(self.quantity_edit.text())
             new_entry.invoice = int(self.invoice_edit.text())
             new_entry.rack = self.rack_edit.text()
+            new_entry.remarks = self.remarks_edit.text()
             new_entry.date = self.date_edit.date().toString("dd-MM-yyyy")
-            new_entry.add()
-
-            dialog.accept()
+            if new_entry.add():
+                dialog.accept()
 
         outwards_model.select()
         inventory_model.select()

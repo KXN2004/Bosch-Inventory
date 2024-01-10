@@ -11,15 +11,6 @@ def create_connection():
     return True
 
 
-def refresh_table():
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            func(*args, **kwargs)
-            inwards_model.select()
-        return wrapper
-    return decorator
-
-
 # Create connection to the database
 create_connection()
 

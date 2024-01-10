@@ -140,7 +140,7 @@ class Ui_main_window(object):
         self.clear_button_2.setEnabled(False)
         icon_n = QtGui.QIcon()
         icon_n.addPixmap(QtGui.QPixmap("../assets/icons/close-square.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-
+        self.inwards_table.verticalHeader().setVisible(False)
         self.clear_button_2.setIcon(icon_n)
         self.clear_button_2.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.clear_button_2.setObjectName("clear_button_2")
@@ -173,21 +173,11 @@ class Ui_main_window(object):
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap("../assets/icons/folder-move.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tab_widget.addTab(self.inventory_tab, icon6, "")
-        self.rack_tab = QtWidgets.QWidget()
-        self.rack_tab.setObjectName("rack_tab")
-        self.gridLayout_71 = QtWidgets.QGridLayout(self.rack_tab)
-        self.gridLayout_71.setObjectName("gridLayout_71")
-        self.group_box_31 = QtWidgets.QGroupBox(self.rack_tab)
-        self.group_box_31.setStatusTip("")
-        self.group_box_31.setObjectName("group_box_31")
-        self.gridLayout_61 = QtWidgets.QGridLayout(self.group_box_31)
-        self.gridLayout_61.setObjectName("gridLayout_61")
-        self.table_view_31 = QtWidgets.QTableView(self.group_box_31)
-        self.table_view_31.setStatusTip("")
-        self.table_view_31.setObjectName("table_view_31")
-        self.gridLayout_61.addWidget(self.table_view_31, 0, 0, 1, 1)
-        self.gridLayout_71.addWidget(self.group_box_31, 0, 0, 1, 1)
-        self.tab_widget.addTab(self.rack_tab, icon6, "")
+
+        self.inwards_table.verticalHeader().setVisible(False)
+        self.table_view_2.verticalHeader().setVisible(False)
+        self.table_view_3.verticalHeader().setVisible(False)
+
         self.gridLayout_2.addWidget(self.tab_widget, 0, 0, 1, 1)
         main_window.setCentralWidget(self.central_widget)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -217,8 +207,6 @@ class Ui_main_window(object):
         self.tab_widget.setTabText(self.tab_widget.indexOf(self.outward_tab), _translate("main_window", "Outward"))
         self.group_box_3.setTitle(_translate("main_window", "Manage Inventory"))
         self.tab_widget.setTabText(self.tab_widget.indexOf(self.inventory_tab), _translate("main_window", "Inventory"))
-        self.group_box_31.setTitle(_translate("main_window", "Manage Rack"))
-        self.tab_widget.setTabText(self.tab_widget.indexOf(self.rack_tab), _translate("main_window", "Rack"))
 
 
     def open_add_dialog(self) -> None:
