@@ -14,16 +14,6 @@ from datetime import datetime
 from controllers.controller import inwards_model, outwards_model, inventory_model
 from utils.utils import only_digits
 
-
-class MyEmitter(QtCore.QObject):
-    # Define a custom signal with parameters
-    my_signal = QtCore.pyqtSignal(str)
-
-    def emit_signal(self):
-        # Emit the custom signal with a message
-        self.my_signal.emit("Hello from the custom signal!")
-
-
 class Ui_dialog(object):
     def setupUi(self, dialog, tablename):
 

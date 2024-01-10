@@ -9,7 +9,7 @@
 import sys
 
 from PyQt5.QtCore import QRect
-from PyQt5.QtWidgets import QAction, QMenuBar, QMenu, QStatusBar
+from PyQt5.QtWidgets import QAction, QMenuBar, QMenu, QStatusBar, QMessageBox
 
 sys.path.append("..")
 
@@ -21,12 +21,6 @@ from views.add_dialog import Ui_dialog
 from controllers.controller import inwards_model, outwards_model, inventory_model
 
 
-class MyReceiver(QtCore.QObject):
-    def my_slot(self, message):
-        # Slot to receive the custom signal and print the message
-        print("Received message:", message)
-
-
 class Ui_main_window(object):
     def setupUi(self, main_window):
         main_window.setObjectName("main_window")
@@ -35,20 +29,6 @@ class Ui_main_window(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../assets/icons/layers.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         main_window.setWindowIcon(icon)
-        self.actionQuit = QAction(main_window)
-        self.actionQuit.setObjectName(u"actionQuit")
-        temp_icon = QtGui.QIcon()
-        temp_icon.addPixmap(QtGui.QPixmap("../assets/icons/close-square.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionQuit.setIcon(temp_icon)
-        self.menubar = QMenuBar(main_window)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 800, 26))
-        self.menuFile = QMenu(self.menubar)
-        self.menuFile.setObjectName(u"menuFile")
-        main_window.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(main_window)
-        self.statusbar.setObjectName(u"statusbar")
-        main_window.setStatusBar(self.statusbar)
         self.central_widget = QtWidgets.QWidget(main_window)
         self.central_widget.setObjectName("central_widget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.central_widget)
@@ -84,7 +64,6 @@ class Ui_main_window(object):
         self.add_button.clicked.connect(self.open_add_dialog)
         self.horizontal_layout.addWidget(self.add_button)
         self.delete_button = QtWidgets.QToolButton(self.group_box)
-        self.delete_button.setEnabled(False)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("../../../Downloads/icons/close-ellipse.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.delete_button.setIcon(icon2)
@@ -93,14 +72,6 @@ class Ui_main_window(object):
         self.horizontal_layout.addWidget(self.delete_button)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontal_layout.addItem(spacerItem)
-        self.clear_button = QtWidgets.QToolButton(self.group_box)
-        self.clear_button.setEnabled(False)
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("../../../Downloads/icons/close-square.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.clear_button.setIcon(icon3)
-        self.clear_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
-        self.clear_button.setObjectName("clear_button")
-        self.horizontal_layout.addWidget(self.clear_button)
         self.gridLayout.addLayout(self.horizontal_layout, 0, 0, 1, 1)
         self.inwards_table = QtWidgets.QTableView(self.group_box)
         self.inwards_table.setStatusTip("")
@@ -129,22 +100,13 @@ class Ui_main_window(object):
         self.horizontalLayout_2.addWidget(self.add_button_2)
         self.add_button_2.clicked.connect(self.open_add_dialog_2)
         self.delete_button_2 = QtWidgets.QToolButton(self.group_box_2)
-        self.delete_button_2.setEnabled(False)
         self.delete_button_2.setIcon(icon2)
         self.delete_button_2.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.delete_button_2.setObjectName("delete_button_2")
         self.horizontalLayout_2.addWidget(self.delete_button_2)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
-        self.clear_button_2 = QtWidgets.QToolButton(self.group_box_2)
-        self.clear_button_2.setEnabled(False)
-        icon_n = QtGui.QIcon()
-        icon_n.addPixmap(QtGui.QPixmap("../assets/icons/close-square.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.inwards_table.verticalHeader().setVisible(False)
-        self.clear_button_2.setIcon(icon_n)
-        self.clear_button_2.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
-        self.clear_button_2.setObjectName("clear_button_2")
-        self.horizontalLayout_2.addWidget(self.clear_button_2)
+
         self.gridLayout_4.addLayout(self.horizontalLayout_2, 0, 0, 1, 1)
         self.table_view_2 = QtWidgets.QTableView(self.group_box_2)
         self.table_view_2.setStatusTip("")
@@ -173,16 +135,15 @@ class Ui_main_window(object):
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap("../assets/icons/folder-move.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tab_widget.addTab(self.inventory_tab, icon6, "")
-
+        self.delete_button.clicked.connect(self.deleteSelectedRow)
+        self.delete_button_2.clicked.connect(self.deleteSelectedRow_2)
         self.inwards_table.verticalHeader().setVisible(False)
         self.table_view_2.verticalHeader().setVisible(False)
         self.table_view_3.verticalHeader().setVisible(False)
-
+        self.inwards_selection_model =  self.inwards_table.selectionModel()
+        self.outwards_selection_model = self.table_view_2.selectionModel()
         self.gridLayout_2.addWidget(self.tab_widget, 0, 0, 1, 1)
         main_window.setCentralWidget(self.central_widget)
-        self.menubar.addAction(self.menuFile.menuAction())
-        self.menuFile.addAction(self.actionQuit)
-        self.actionQuit.triggered.connect(main_window.close)
         self.retranslateUi(main_window)
         self.tab_widget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(main_window)
@@ -191,19 +152,14 @@ class Ui_main_window(object):
 
     def retranslateUi(self, main_window):
         _translate = QtCore.QCoreApplication.translate
-        self.actionQuit.setText(_translate("main_window", u"Quit", None))
-        self.actionQuit.setShortcut(_translate("main_window", u"Ctrl+Q", None))
-        self.menuFile.setTitle(_translate("main_window", u"File", None))
         main_window.setWindowTitle(_translate("main_window", "Bosch Inventory"))
         self.group_box.setTitle(_translate("main_window", "Manage Inwards"))
         self.add_button.setText(_translate("main_window", "Add"))
         self.delete_button.setText(_translate("main_window", "Delete"))
-        self.clear_button.setText(_translate("main_window", "Clear"))
         self.tab_widget.setTabText(self.tab_widget.indexOf(self.inward_tab), _translate("main_window", "Inword"))
         self.group_box_2.setTitle(_translate("main_window", "Manage Outwards"))
         self.add_button_2.setText(_translate("main_window", "Add"))
         self.delete_button_2.setText(_translate("main_window", "Delete"))
-        self.clear_button_2.setText(_translate("main_window", "Clear"))
         self.tab_widget.setTabText(self.tab_widget.indexOf(self.outward_tab), _translate("main_window", "Outward"))
         self.group_box_3.setTitle(_translate("main_window", "Manage Inventory"))
         self.tab_widget.setTabText(self.tab_widget.indexOf(self.inventory_tab), _translate("main_window", "Inventory"))
@@ -224,6 +180,42 @@ class Ui_main_window(object):
         ui = Ui_dialog()
         ui.setupUi(dialog, "Outwards")
         dialog.exec_()
+
+    def deleteSelectedRow(self):
+        # Get the selected indexes from the selection model
+        selected_indexes = self.inwards_selection_model.selectedIndexes()
+
+        if selected_indexes:
+            for row in selected_indexes:
+                # Assuming you want to delete the entire row of the first selected cell
+                row = row.row()
+
+                # Remove the row from the model
+                inwards_model.removeRow(row)
+                inwards_model.submitAll()  # Submit changes to the database
+
+            # Remove the row from the model
+            inwards_model.removeRow(row)
+            inwards_model.submitAll()  # Submit changes to the database
+            inwards_model.select()
+
+    def deleteSelectedRow_2(self):
+        # Get the selected indexes from the selection model
+        selected_indexes = self.outwards_selection_model.selectedIndexes()
+
+        if selected_indexes:
+            for row in selected_indexes:
+                # Assuming you want to delete the entire row of the first selected cell
+                row = row.row()
+
+                # Remove the row from the model
+                outwards_model.removeRow(row)
+                outwards_model.submitAll()  # Submit changes to the database
+
+            # Remove the row from the model
+            outwards_model.removeRow(row)
+            outwards_model.submitAll()  # Submit changes to the database
+            outwards_model.select()
 
 
 if __name__ == "__main__":
