@@ -8,7 +8,7 @@ from sqlalchemy import create_engine, Column, Integer, Text
 
 
 Base = declarative_base()
-engine = create_engine('sqlite:///db/app.db', echo=True)
+engine = create_engine('sqlite:///app.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -104,7 +104,7 @@ class Outwards(Base):
         # If part already exists and its quantity is not zero
         if part_exists:  # When there is such a part
             # If the quantity to be remove is less than what exists
-            if self.quantity <= part_exists[0].quantity:
+            if 1 <= self.quantity <= part_exists[0].quantity:
                 # Decrement the amount of part in the inventory
                 part_exists[0].quantity -= self.quantity
                 # Push the changes to the database
@@ -122,7 +122,7 @@ class Outwards(Base):
                 # Add an icon to inform the user of his mistake
                 alert.setIcon(QMessageBox.Warning)
                 # Set the text displayed inside to show the following message
-                alert.setText(f"Cannot withdraw, only few parts left in rack! ({part_exists[0].quantity} left)")
+                alert.setText(f"Too many part requested! ({part_exists[0].quantity} left)")
                 # Add an 'OK' button for the user to click
                 alert.setStandardButtons(QMessageBox.Ok)
                 # Launch the Alert
@@ -137,7 +137,7 @@ class Outwards(Base):
             alert_icon.addPixmap(QtGui.QPixmap("../assets/icons/hand.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             alert.setWindowIcon(alert_icon)
             # Add an icon to inform the user of his mistake
-            alert.setIcon(QMessageBox.Warning)
+            alert.setIcon(QMessageBox.Critical)
             # Set the text displayed inside to show the following message
             alert.setText(f"No such part in Rack {self.rack}")
             # Add an 'OK' button for the user to click
@@ -173,6 +173,7 @@ def create_connection():
         return False
     return True
 
+create_connection()
 
 # Create a QSqlTableModel object
 inwards_model = QSqlTableModel()
@@ -396,7 +397,7 @@ class Ui_main_window(object):
         main_window.resize(800, 600)
         main_window.setMinimumSize(QtCore.QSize(800, 600))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../assets/icons/layers.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../assets/icons/app-icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         main_window.setWindowIcon(icon)
         self.central_widget = QtWidgets.QWidget(main_window)
         self.central_widget.setObjectName("central_widget")
@@ -446,6 +447,7 @@ class Ui_main_window(object):
         self.inwards_table.setStatusTip("")
         self.inwards_table.setObjectName("table_view")
         self.inwards_table.setModel(inwards_model)
+        self.inwards_table.setSortingEnabled(True)
         self.gridLayout.addWidget(self.inwards_table, 1, 0, 1, 1)
         self.verticalLayout.addWidget(self.group_box)
         icon3 = QtGui.QIcon()
@@ -481,6 +483,7 @@ class Ui_main_window(object):
         self.table_view_2.setStatusTip("")
         self.table_view_2.setObjectName("table_view_2")
         self.table_view_2.setModel(outwards_model)
+        self.table_view_2.setSortingEnabled(True)
         self.gridLayout_4.addWidget(self.table_view_2, 1, 0, 1, 1)
         self.gridLayout_5.addWidget(self.group_box_2, 0, 0, 1, 1)
         icon4 = QtGui.QIcon()
@@ -499,6 +502,7 @@ class Ui_main_window(object):
         self.table_view_3.setStatusTip("")
         self.table_view_3.setObjectName("table_view_3")
         self.table_view_3.setModel(inventory_model)
+        self.table_view_3.setSortingEnabled(True)
         self.gridLayout_6.addWidget(self.table_view_3, 0, 0, 1, 1)
         self.gridLayout_7.addWidget(self.group_box_3, 0, 0, 1, 1)
         icon6 = QtGui.QIcon()
